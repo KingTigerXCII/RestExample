@@ -10,15 +10,14 @@ import javax.ws.rs.QueryParam;
 import rest.starWars.dataServices.JediDataService;
 import rest.starWars.models.Jedi;
 
-@Path(JediService.webContextPath)
+@Path("/jedis")
 public class JediService {
-	static final String webContextPath = "/jedis";
 	JediDataService jediDataService = new JediDataService();
 	
 	@GET
 	@Path("{id}")
-	public String getJediPlainText(@QueryParam("name")String name) {
-		Jedi jedi = jediDataService.getJedi(name);
+	public String getJediPlainText(@QueryParam("id")int id) {
+		Jedi jedi = jediDataService.getJedi(id);
 		return "Hello " + jedi.getName() + " " + jedi.getLightsaberColour();
 	}
 	
