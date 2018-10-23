@@ -17,7 +17,6 @@ public class Jedi implements Comparable<Jedi> {
 	
 	@Override
 	public int compareTo(Jedi jedi) {
-		// TODO Auto-generated method stub
 		return this.getId() - jedi.getId();
 	}
 

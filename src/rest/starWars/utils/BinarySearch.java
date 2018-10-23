@@ -7,21 +7,26 @@ import rest.starWars.models.Jedi;
 public class BinarySearch {
 	public static int binarySearch(ArrayList<Jedi> searchableItems, int searchValue) {
 		int start = 0;
-		int end = searchableItems.size();
+		int end = searchableItems.size() - 1;
 		int middle = start + (end - start) / 2;
 		
 		while(start <= end) {
 			if(searchableItems.get(middle).getId() == searchValue) {
 				return middle;
-			} else if(searchableItems.get(middle).getId() > searchValue) {
-				start = middle + 1;
-			} else {
+			} else if(searchValue < searchableItems.get(middle).getId()) {
 				end = middle - 1;
+			} else {
+				start = middle + 1;
 			}
 			middle = start + (end - start) / 2;
 		}
 		
-		return -1;
+		if(start <= end) {
+			return middle;
+		} else {
+			return -1;
+		}
+		
 	}
 	
 	public static int binarySearchOnIdsRec(ArrayList<Jedi> searchableItems, int searchValue, int start, int end) {
