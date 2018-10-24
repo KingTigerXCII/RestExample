@@ -1,15 +1,13 @@
 package rest.starWars.models;
 
-import java.util.Comparator;
-
 import rest.starWars.constants.LightsaberColour;
 
 public class Jedi implements Comparable<Jedi> {
-	private int id;
+	private Integer id;
 	private String name;
 	private LightsaberColour lightsaberColour;
 	
-	public Jedi(int id, String name, LightsaberColour lightsaberColour) {
+	public Jedi(Integer id, String name, LightsaberColour lightsaberColour) {
 		this.setId(id);
 		this.setName(name);
 		this.setLightsaberColour(lightsaberColour);
@@ -24,7 +22,7 @@ public class Jedi implements Comparable<Jedi> {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 

@@ -28,6 +28,20 @@ public class JediDataService {
 		return jedis.get(index);
 	}
 	
+	public Jedi createJedi(Jedi jedi) {
+		// Create in Db, set id
+		jedis.add(jedi);
+		return jedi;
+	}
+	
+	public void deleteJedi(int id) throws Exception {
+		int index = BinarySearch.binarySearch(jedis, id);
+		if(index == -1) {
+			throw new Exception();
+		}
+		// Delete in Db	
+	}
+	
 	private void createFakeData() {
 		jedis.add(new Jedi(3, "Joda", LightsaberColour.GREEN));
 		jedis.add(new Jedi(1, "Obi Wan Kenobi", LightsaberColour.BLUE));
