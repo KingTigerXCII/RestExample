@@ -22,7 +22,7 @@ public class JediService {
 	@GET
 	@Path("/{id}")
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response getJediPlainText(@PathParam("id")Integer id) {
+	public Response getJedi(@PathParam("id")Integer id) {
 		Jedi jedi = jediDataService.getJedi(id);
 		if(jedi == null) {
 			return Response.status(Response.Status.BAD_REQUEST).build();
@@ -35,7 +35,7 @@ public class JediService {
 	@GET
 	@Path("/all")
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response getJediJson() {
+	public Response getJedi() {
 		ArrayList<Jedi> jedis = jediDataService.getJedis();
 		return Response.status(Response.Status.OK).entity(jedis)
 				.type(MediaType.APPLICATION_JSON).build();
