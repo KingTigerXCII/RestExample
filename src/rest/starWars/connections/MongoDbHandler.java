@@ -1,20 +1,51 @@
 package rest.starWars.connections;
 
 import java.net.UnknownHostException;
-import com.mongodb.MongoClient;
 
-public class MongoDbConnection {
-	private MongoClient mongoClient = null;
+import com.mongodb.DB;
+import com.mongodb.DBCollection;
+import com.mongodb.MongoClient;
+import com.mongodb.MongoClientURI;
+import com.sun.jersey.spi.resource.Singleton;
+
+@Singleton
+public class MongoDbHandler {
 	
-	public void init() {
+	private static final String hostname = "localhost";
+	private static final int port = 27017;
+	private static MongoDbHandler mongoDbHandler = new MongoDbHandler();
+	private MongoClient mongoClient;
+	private DB db;
+	
+	private MongoDbHandler() {
 		try {
-			mongoClient = new MongoClient();
-		} catch (UnknownHostException e) {
-			e.printStackTrace();
+			init();	
+		} catch (Exception ex) {
+			ex.printStackTrace();
 		}
 	}
 
-	public MongoClient getMongoClient() {
-		return mongoClient;
+	private void init() throws UnknownHostException {
+		String uri = hostname + port;
+		MongoClientURI mongoClientUri = new MongoClientURI(uri);
+		mongoClient = new MongoClient(mongoClientUri);
 	}
+	
+	public static MongoDbHandler get() {
+		return mongoDbHandler;
+	}
+	
+	public MongoDbHandler connectToDatabase(String databaseName) {
+		if(db != null) {
+			throw new RuntimeException("Already connected to " + db.getName());
+		}
+		
+		db = mongoClient.getDB(databaseName);
+		return mongoDbHandler;
+	}
+	
+	public DBCollection getCollection(String collectionName) {
+		return db.getCollection(collectionName);
+	}
+	
 }

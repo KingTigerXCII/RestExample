@@ -1,7 +1,7 @@
 package rest.starWars.utils;
 
 public class SelectionSort {
-	public static int[] SelectionSort(int[] numbers) {
+	public static int[] executeSelectionSort(int[] numbers) {
 		for(int i = 0; i < numbers.length - 1; i++) {
 			int minIndex = findMin(numbers, i);
 			swap(numbers, i, minIndex);

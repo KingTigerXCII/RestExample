@@ -22,9 +22,28 @@
           <warSourceDirectory>WebContent</warSourceDirectory>
         </configuration>
       </plugin>
+      <plugin>
+    	<groupId>org.apache.maven.plugins</groupId>
+		<artifactId>maven-jar-plugin</artifactId>
+		<version>3.1.0</version>
+		<configuration>
+			<archive>
+				<manifest>
+					<addClasspath>true</addClasspath>
+					<mainClass>rest.starWars.App.Application</mainClass>
+				</manifest>
+			</archive>
+		</configuration>      
+      </plugin>
     </plugins>
   </build>
   	<dependencies>
+		<dependency>
+		    <groupId>javax</groupId>
+		    <artifactId>javaee-api</artifactId>
+		    <version>8.0</version>
+		    <scope>provided</scope>
+		</dependency>
 		<dependency>
 			<groupId>asm</groupId>
 			<artifactId>asm</artifactId>

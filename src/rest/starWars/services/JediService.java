@@ -2,10 +2,11 @@ package rest.starWars.services;
 
 import java.util.ArrayList;
 
+import javax.inject.Inject;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
-import javax.ws.rs.PUT;
+import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
@@ -17,13 +18,15 @@ import rest.starWars.models.Jedi;
 
 @Path("/jedis")
 public class JediService {
-	JediDataService jediDataService = new JediDataService();
+	
+	@Inject
+	JediDataService jediDataService;
 	
 	@GET
 	@Path("/{id}")
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response getJedi(@PathParam("id")Integer id) {
-		Jedi jedi = jediDataService.getJedi(id);
+		Jedi jedi = jediDataService.getById(id);
 		if(jedi == null) {
 			return Response.status(Response.Status.BAD_REQUEST).build();
 		}
@@ -36,32 +39,28 @@ public class JediService {
 	@Path("/all")
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response getJedi() {
-		ArrayList<Jedi> jedis = jediDataService.getJedis();
+		ArrayList<Jedi> jedis = jediDataService.getAll();
 		return Response.status(Response.Status.OK).entity(jedis)
 				.type(MediaType.APPLICATION_JSON).build();
 	}
 	
-	@PUT
+	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
-	@Produces(MediaType.APPLICATION_JSON)
-	public Response createJedi(Jedi jedi) {
-		Jedi jediWithDbId;
-		
+	public Response createJedi(Jedi jedi) {		
 		try {
-			jediWithDbId = jediDataService.createJedi(jedi);
+			jediDataService.create(jedi);
 		} catch(Exception exception) {
 			return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();			
 		}
 	
-		return Response.status(Response.Status.OK).entity(jediWithDbId)
-				.type(MediaType.APPLICATION_JSON).build();
+		return Response.status(Response.Status.OK).build();
 	}
 	
 	@DELETE
 	@Path("/{id}")
 	public Response deleteJedi(@PathParam("id")Integer id) {
 		try {
-			jediDataService.deleteJedi(id);
+			jediDataService.removeById(id);
 		} catch(Exception exception) {
 			return Response.status(Response.Status.BAD_REQUEST).build();
 		}

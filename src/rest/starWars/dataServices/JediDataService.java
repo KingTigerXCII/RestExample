@@ -2,50 +2,72 @@ package rest.starWars.dataServices;
 
 import java.util.ArrayList;
 
-import rest.starWars.constants.LightsaberColour;
-import rest.starWars.models.Jedi;
-import rest.starWars.utils.BinarySearch;
+import javax.annotation.PostConstruct;
+import javax.ejb.Stateless;
 
-public class JediDataService {
-	private ArrayList<Jedi> jedis = new ArrayList<Jedi>();	
+import rest.starWars.dbRepositories.JediRepository;
+import rest.starWars.models.Jedi;
+
+@Stateless
+public class JediDataService implements JediRepository {
 	
-	public ArrayList<Jedi> getJedis() {
-		createFakeData();
-		return jedis;
+	private static final String collectionName = "Jedi";
+	
+	@PostConstruct
+	public void init() {
 	}
-	
-	public Jedi getJedi(String name) {		
+
+	@Override
+	public void create(Jedi jedi) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void removeAll() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void removeByName(String name) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void removeById(int id) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void updateByName(String name) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void updateById(int id) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public Jedi getByName(String name) {
+		// TODO Auto-generated method stub
 		return null;
 	}
-	
-	public Jedi getJedi(int id) {
-		createFakeData();
-		int index = BinarySearch.binarySearch(jedis, id);
-		if(index == -1) {
-			return null;
-		}
-		
-		return jedis.get(index);
+
+	@Override
+	public Jedi getById(int id) {
+		// TODO Auto-generated method stub
+		return null;
 	}
-	
-	public Jedi createJedi(Jedi jedi) {
-		// Create in Db, set id
-		jedis.add(jedi);
-		return jedi;
-	}
-	
-	public void deleteJedi(int id) throws Exception {
-		int index = BinarySearch.binarySearch(jedis, id);
-		if(index == -1) {
-			throw new Exception();
-		}
-		// Delete in Db	
-	}
-	
-	private void createFakeData() {
-		jedis.add(new Jedi(3, "Joda", LightsaberColour.GREEN));
-		jedis.add(new Jedi(1, "Obi Wan Kenobi", LightsaberColour.BLUE));
-		jedis.add(new Jedi(2, "Luke Skywalker", LightsaberColour.BLUE));
-		jedis.sort((Jedi jedi1, Jedi jedi2) -> jedi1.compareTo(jedi2));
+
+	@Override
+	public ArrayList<Jedi> getAll() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

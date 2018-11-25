@@ -7,6 +7,8 @@ public class Jedi implements Comparable<Jedi> {
 	private String name;
 	private LightsaberColour lightsaberColour;
 	
+	public Jedi() {}
+	
 	public Jedi(Integer id, String name, LightsaberColour lightsaberColour) {
 		this.setId(id);
 		this.setName(name);
