@@ -1,8 +1,10 @@
 package rest.starWars.services;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-import javax.inject.Inject;
+import javax.ejb.EJB;
+import javax.enterprise.context.RequestScoped;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
@@ -17,10 +19,12 @@ import rest.starWars.dataServices.JediDataService;
 import rest.starWars.models.Jedi;
 
 @Path("/jedis")
-public class JediService {
+@RequestScoped
+public class JediService implements Serializable {
 	
-	@Inject
+	@EJB
 	JediDataService jediDataService;
+	private static final long serialVersionUID = 7864602476359850890L;
 	
 	@GET
 	@Path("/{id}")

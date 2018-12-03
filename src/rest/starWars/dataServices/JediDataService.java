@@ -3,19 +3,17 @@ package rest.starWars.dataServices;
 import java.util.ArrayList;
 
 import javax.annotation.PostConstruct;
+import javax.ejb.Local;
 import javax.ejb.Stateless;
 
-import rest.starWars.dbRepositories.JediRepository;
+import rest.starWars.dbRepositories.JediDbRepository;
 import rest.starWars.models.Jedi;
 
 @Stateless
-public class JediDataService implements JediRepository {
+@Local
+public class JediDataService implements JediDbRepository {
 	
 	private static final String collectionName = "Jedi";
-	
-	@PostConstruct
-	public void init() {
-	}
 
 	@Override
 	public void create(Jedi jedi) {
