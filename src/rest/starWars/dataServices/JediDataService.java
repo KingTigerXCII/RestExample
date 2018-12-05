@@ -10,10 +10,9 @@ import rest.starWars.dbRepositories.JediDbRepository;
 import rest.starWars.models.Jedi;
 
 @Stateless
-@Local
 public class JediDataService implements JediDbRepository {
 	
-	private static final String collectionName = "Jedi";
+	private static final String collectionName = "jedi";
 
 	@Override
 	public void create(Jedi jedi) {

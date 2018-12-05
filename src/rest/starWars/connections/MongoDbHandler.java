@@ -2,6 +2,8 @@ package rest.starWars.connections;
 
 import java.net.UnknownHostException;
 
+import javax.ejb.Startup;
+
 import com.mongodb.DB;
 import com.mongodb.DBCollection;
 import com.mongodb.MongoClient;
@@ -9,6 +11,7 @@ import com.mongodb.MongoClientURI;
 import com.sun.jersey.spi.resource.Singleton;
 
 @Singleton
+@Startup
 public class MongoDbHandler {
 	
 	private static final String hostname = "localhost";
@@ -26,7 +29,8 @@ public class MongoDbHandler {
 	}
 
 	private void init() throws UnknownHostException {
-		String uri = hostname + port;
+		System.out.println("MongoDbHandler initializisation....");
+		String uri = "mongodb://" + hostname + ":" + port;
 		MongoClientURI mongoClientUri = new MongoClientURI(uri);
 		mongoClient = new MongoClient(mongoClientUri);
 	}
