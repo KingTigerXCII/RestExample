@@ -1,4 +1,4 @@
-package rest.starWars.constants;
+package starWars.constants;
 
 public enum LightsaberColour {
 	RED,

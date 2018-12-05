@@ -1,4 +1,4 @@
-package rest.starWars.connections;
+package starWars.connections;
 
 import java.net.UnknownHostException;
 

@@ -1,18 +1,23 @@
-package rest.starWars.dataServices;
+package starWars.dataServices;
 
 import java.util.ArrayList;
 
-import javax.annotation.PostConstruct;
-import javax.ejb.Local;
+import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 
-import rest.starWars.dbRepositories.JediDbRepository;
-import rest.starWars.models.Jedi;
+import com.mongodb.DBCollection;
+import com.mongodb.DBCursor;
+
+import rest.starWars.dbQueries.JediQueries;
+import starWars.connections.MongoDbHandler;
+import starWars.models.Jedi;
 
 @Stateless
-public class JediDataService implements JediDbRepository {
+@LocalBean
+public class JediDataService implements JediQueries {
 	
 	private static final String collectionName = "jedi";
+	private DBCollection jediCollection;
 
 	@Override
 	public void create(Jedi jedi) {
@@ -63,8 +68,15 @@ public class JediDataService implements JediDbRepository {
 	}
 
 	@Override
-	public ArrayList<Jedi> getAll() {
-		// TODO Auto-generated method stub
-		return null;
+	public ArrayList<String> getAll() {
+		jediCollection = MongoDbHandler.get().getCollection(collectionName);
+		ArrayList<String> jedis = new ArrayList<String>();
+		
+		DBCursor jediCursor = jediCollection.find();
+		while(jediCursor.hasNext()) {
+			jedis.add((String)jediCursor.next().get("name"));
+		}
+		
+		return jedis;
 	}
 }

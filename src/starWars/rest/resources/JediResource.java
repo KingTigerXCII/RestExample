@@ -1,10 +1,10 @@
-package rest.starWars.services;
+package starWars.rest.resources;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 
-import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
+import javax.inject.Inject;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
@@ -15,14 +15,14 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-import rest.starWars.dataServices.JediDataService;
-import rest.starWars.models.Jedi;
+import starWars.dataServices.JediDataService;
+import starWars.models.Jedi;
 
-@Path("/jedis")
 @RequestScoped
-public class JediService implements Serializable {
+@Path("/jedis")
+public class JediResource implements Serializable {
 	
-	@EJB
+	@Inject
 	JediDataService jediDataService;
 	private static final long serialVersionUID = 7864602476359850890L;
 	
@@ -43,7 +43,7 @@ public class JediService implements Serializable {
 	@Path("/all")
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response getJedi() {
-		ArrayList<Jedi> jedis = jediDataService.getAll();
+		ArrayList<String> jedis = jediDataService.getAll();
 		return Response.status(Response.Status.OK).entity(jedis)
 				.type(MediaType.APPLICATION_JSON).build();
 	}

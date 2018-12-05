@@ -1,6 +1,6 @@
-package rest.starWars.models;
+package starWars.models;
 
-import rest.starWars.constants.LightsaberColour;
+import starWars.constants.LightsaberColour;
 
 public class Jedi implements Comparable<Jedi> {
 	private Integer id;
