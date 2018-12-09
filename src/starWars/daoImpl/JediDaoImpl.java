@@ -1,4 +1,4 @@
-package starWars.dataServices;
+package starWars.daoImpl;
 
 import java.util.ArrayList;
 
@@ -8,21 +8,22 @@ import javax.ejb.Stateless;
 import com.mongodb.DBCollection;
 import com.mongodb.DBCursor;
 
-import rest.starWars.dbQueries.JediQueries;
+import starWars.adapters.JediAdapter;
 import starWars.connections.MongoDbHandler;
+import starWars.constants.DatabaseCollectionNames;
+import starWars.dao.JediDao;
 import starWars.models.Jedi;
 
 @Stateless
 @LocalBean
-public class JediDataService implements JediQueries {
+public class JediDaoImpl implements JediDao {
 	
-	private static final String collectionName = "jedi";
 	private DBCollection jediCollection;
 
 	@Override
 	public void create(Jedi jedi) {
-		// TODO Auto-generated method stub
-		
+		jediCollection = MongoDbHandler.get().getCollection(DatabaseCollectionNames.JEDI.toString());
+		jediCollection.insert(JediAdapter.toDbObject(jedi));
 	}
 
 	@Override
@@ -69,7 +70,7 @@ public class JediDataService implements JediQueries {
 
 	@Override
 	public ArrayList<String> getAll() {
-		jediCollection = MongoDbHandler.get().getCollection(collectionName);
+		jediCollection = MongoDbHandler.get().getCollection(DatabaseCollectionNames.JEDI.toString());
 		ArrayList<String> jedis = new ArrayList<String>();
 		
 		DBCursor jediCursor = jediCollection.find();

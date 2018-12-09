@@ -2,23 +2,10 @@ package starWars.models;
 
 import starWars.constants.LightsaberColour;
 
-public class Jedi implements Comparable<Jedi> {
+public class Jedi {
 	private Integer id;
 	private String name;
 	private LightsaberColour lightsaberColour;
-	
-	public Jedi() {}
-	
-	public Jedi(Integer id, String name, LightsaberColour lightsaberColour) {
-		this.setId(id);
-		this.setName(name);
-		this.setLightsaberColour(lightsaberColour);
-	}
-	
-	@Override
-	public int compareTo(Jedi jedi) {
-		return this.getId() - jedi.getId();
-	}
 
 	public int getId() {
 		return id;

@@ -29,7 +29,6 @@ public class MongoDbHandler {
 	}
 
 	private void init() throws UnknownHostException {
-		System.out.println("MongoDbHandler initializisation....");
 		String uri = "mongodb://" + hostname + ":" + port;
 		MongoClientURI mongoClientUri = new MongoClientURI(uri);
 		mongoClient = new MongoClient(mongoClientUri);

@@ -15,7 +15,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-import starWars.dataServices.JediDataService;
+import starWars.daoImpl.JediDaoImpl;
 import starWars.models.Jedi;
 
 @RequestScoped
@@ -23,14 +23,14 @@ import starWars.models.Jedi;
 public class JediResource implements Serializable {
 	
 	@Inject
-	JediDataService jediDataService;
+	JediDaoImpl jediDaoImpl;
 	private static final long serialVersionUID = 7864602476359850890L;
 	
 	@GET
 	@Path("/{id}")
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response getJedi(@PathParam("id")Integer id) {
-		Jedi jedi = jediDataService.getById(id);
+		Jedi jedi = jediDaoImpl.getById(id);
 		if(jedi == null) {
 			return Response.status(Response.Status.BAD_REQUEST).build();
 		}
@@ -43,7 +43,7 @@ public class JediResource implements Serializable {
 	@Path("/all")
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response getJedi() {
-		ArrayList<String> jedis = jediDataService.getAll();
+		ArrayList<String> jedis = jediDaoImpl.getAll();
 		return Response.status(Response.Status.OK).entity(jedis)
 				.type(MediaType.APPLICATION_JSON).build();
 	}
@@ -52,7 +52,7 @@ public class JediResource implements Serializable {
 	@Consumes(MediaType.APPLICATION_JSON)
 	public Response createJedi(Jedi jedi) {		
 		try {
-			jediDataService.create(jedi);
+			jediDaoImpl.create(jedi);
 		} catch(Exception exception) {
 			return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();			
 		}
@@ -64,7 +64,7 @@ public class JediResource implements Serializable {
 	@Path("/{id}")
 	public Response deleteJedi(@PathParam("id")Integer id) {
 		try {
-			jediDataService.removeById(id);
+			jediDaoImpl.removeById(id);
 		} catch(Exception exception) {
 			return Response.status(Response.Status.BAD_REQUEST).build();
 		}
