@@ -9,9 +9,9 @@ import com.mongodb.DBCollection;
 import com.mongodb.DBCursor;
 
 import starWars.adapters.JediAdapter;
-import starWars.connections.MongoDbHandler;
-import starWars.constants.DatabaseCollectionNames;
+import starWars.constants.DbCollectionNames;
 import starWars.dao.JediDao;
+import starWars.db.MongoDbHandler;
 import starWars.models.Jedi;
 
 @Stateless
@@ -22,7 +22,7 @@ public class JediDaoImpl implements JediDao {
 
 	@Override
 	public void create(Jedi jedi) {
-		jediCollection = MongoDbHandler.get().getCollection(DatabaseCollectionNames.JEDI.toString());
+		jediCollection = MongoDbHandler.get().getCollection(DbCollectionNames.JEDI.toString());
 		jediCollection.insert(JediAdapter.toDbObject(jedi));
 	}
 
@@ -70,7 +70,7 @@ public class JediDaoImpl implements JediDao {
 
 	@Override
 	public ArrayList<String> getAll() {
-		jediCollection = MongoDbHandler.get().getCollection(DatabaseCollectionNames.JEDI.toString());
+		jediCollection = MongoDbHandler.get().getCollection(DbCollectionNames.JEDI.toString());
 		ArrayList<String> jedis = new ArrayList<String>();
 		
 		DBCursor jediCursor = jediCollection.find();

@@ -1,4 +1,4 @@
-package starWars.connections;
+package starWars.db;
 
 import java.net.UnknownHostException;
 
