@@ -1,10 +1,12 @@
 package starWars.daoImpl;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 
+import com.mongodb.BasicDBObject;
 import com.mongodb.DBCollection;
 import com.mongodb.DBCursor;
 
@@ -28,32 +30,20 @@ public class JediDaoImpl implements JediDao {
 
 	@Override
 	public void removeAll() {
-		// TODO Auto-generated method stub
-		
+		jediCollection = MongoDbHandler.get().getCollection(DbCollectionNames.JEDI.toString());
+		jediCollection.remove(new BasicDBObject());
 	}
 
 	@Override
 	public void removeByName(String name) {
-		// TODO Auto-generated method stub
-		
+		jediCollection = MongoDbHandler.get().getCollection(DbCollectionNames.JEDI.toString());
+		jediCollection.remove(new BasicDBObject().append("name", name));
 	}
 
 	@Override
 	public void removeById(int id) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void updateByName(String name) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void updateById(int id) {
-		// TODO Auto-generated method stub
-		
+		jediCollection = MongoDbHandler.get().getCollection(DbCollectionNames.JEDI.toString());
+		jediCollection.remove(new BasicDBObject().append("_id", id));
 	}
 
 	@Override
@@ -69,13 +59,15 @@ public class JediDaoImpl implements JediDao {
 	}
 
 	@Override
-	public ArrayList<String> getAll() {
+	public List<Jedi> getAll() {
 		jediCollection = MongoDbHandler.get().getCollection(DbCollectionNames.JEDI.toString());
-		ArrayList<String> jedis = new ArrayList<String>();
+		List<Jedi> jedis = new ArrayList<Jedi>();
 		
 		DBCursor jediCursor = jediCollection.find();
 		while(jediCursor.hasNext()) {
-			jedis.add((String)jediCursor.next().get("name"));
+			BasicDBObject dbJedi = (BasicDBObject)jediCursor.next();
+			Jedi jedi = JediAdapter.toJediObject(dbJedi);
+			jedis.add(jedi);
 		}
 		
 		return jedis;

@@ -1,18 +1,21 @@
 package starWars.models;
 
+import javax.persistence.Id;
+
 import starWars.constants.LightsaberColour;
 
 public class Jedi {
-	private Integer id;
+	
+	@Id
+	private String id;
 	private String name;
 	private LightsaberColour lightsaberColour;
-
-	public int getId() {
-		return id;
+	
+	public Jedi() {	
 	}
 
-	public void setId(Integer id) {
-		this.id = id;
+	public String getId() {
+		return id;
 	}
 
 	public String getName() {

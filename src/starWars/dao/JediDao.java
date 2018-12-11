@@ -1,6 +1,6 @@
 package starWars.dao;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import starWars.models.Jedi;
 
@@ -9,9 +9,7 @@ public interface JediDao {
 	void removeAll();
 	void removeByName(String name);
 	void removeById(int id);
-	void updateByName(String name);
-	void updateById(int id);
-	ArrayList<String> getAll();
+	List<Jedi> getAll();
 	Jedi getByName(String name);
 	Jedi getById(int id);
 }

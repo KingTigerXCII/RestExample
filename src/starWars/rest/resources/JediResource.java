@@ -1,7 +1,7 @@
 package starWars.rest.resources;
 
 import java.io.Serializable;
-import java.util.ArrayList;
+import java.util.List;
 
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
@@ -42,8 +42,8 @@ public class JediResource implements Serializable {
 	@GET
 	@Path("/all")
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response getJedi() {
-		ArrayList<String> jedis = jediDaoImpl.getAll();
+	public Response getJedis() {
+		List<Jedi> jedis = jediDaoImpl.getAll();
 		return Response.status(Response.Status.OK).entity(jedis)
 				.type(MediaType.APPLICATION_JSON).build();
 	}
@@ -65,6 +65,18 @@ public class JediResource implements Serializable {
 	public Response deleteJedi(@PathParam("id")Integer id) {
 		try {
 			jediDaoImpl.removeById(id);
+		} catch(Exception exception) {
+			return Response.status(Response.Status.BAD_REQUEST).build();
+		}
+		
+		return Response.status(Response.Status.OK)
+				.type(MediaType.APPLICATION_JSON).build();
+	}
+	
+	@DELETE
+	public Response deleteAllJedi() {
+		try {
+			jediDaoImpl.removeAll();
 		} catch(Exception exception) {
 			return Response.status(Response.Status.BAD_REQUEST).build();
 		}

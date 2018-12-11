@@ -51,4 +51,8 @@ public class MongoDbHandler {
 		return db.getCollection(collectionName);
 	}
 	
+	public void closeMongoClient() {
+		mongoClient.close();
+	}
+	
 }

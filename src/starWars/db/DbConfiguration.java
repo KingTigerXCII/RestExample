@@ -10,6 +10,8 @@ import javax.ejb.Startup;
 @Singleton
 public class DbConfiguration {
 	
+	private MongoDbHandler mongoDbHandler;
+	
 	@PostConstruct
 	public void init() {
 		MongoDbHandler mongoDbHandler = MongoDbHandler.get();
@@ -18,6 +20,6 @@ public class DbConfiguration {
 	
 	@PreDestroy
 	public void destroy() {
-		// TODO close db connection
+		mongoDbHandler.closeMongoClient();
 	}
 }
